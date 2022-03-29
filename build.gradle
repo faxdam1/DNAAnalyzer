@@ -1,0 +1,75 @@
+plugins {
+    id "net.ltgt.apt-eclipse" version "0.21"
+    id "com.github.johnrengelman.shadow" version "5.0.0"
+    id "application"
+    id "jacoco"
+}
+
+version "0.1"
+group "dna.analyzer"
+
+repositories {
+    mavenCentral()
+    maven { url "https://jcenter.bintray.com" }
+}
+
+configurations {
+    // for dependencies that are needed for development only
+    developmentOnly 
+}
+
+dependencies {
+    annotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+    annotationProcessor "io.micronaut:micronaut-inject-java:$micronautVersion"
+    annotationProcessor "io.micronaut:micronaut-validation"
+    implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    implementation "io.micronaut:micronaut-inject"
+    implementation "io.micronaut:micronaut-validation"
+    implementation "io.micronaut:micronaut-runtime"
+    implementation "io.micronaut:micronaut-http-server-netty"
+    implementation "io.micronaut:micronaut-http-client"
+    compile group: "com.google.code.gson", name: "gson", version: "2.8.6"
+    compile "io.micronaut.configuration:micronaut-mongo-reactive"
+    compile (group: 'io.micronaut.aws', name: 'micronaut-function-aws-api-proxy', version: '1.3.3')
+    {
+        exclude group: "org.slf4j", module: "slf4j-api"
+        exclude group: "org.slf4j", module: "slf4j-parent"
+    }
+    compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.5'
+    compile 'io.projectreactor:reactor-core'
+    runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
+
+    testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testAnnotationProcessor "io.micronaut:micronaut-inject-java:$micronautVersion"
+    testImplementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
+    testImplementation "io.micronaut.test:micronaut-test-junit5"
+    testImplementation 'io.projectreactor:reactor-test:3.2.10.RELEASE'
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+
+}
+
+test.classpath += configurations.developmentOnly
+
+mainClassName = "meli.com.co.Application"
+// use JUnit 5 platform
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+}
+tasks.withType(JavaCompile){
+    options.encoding = "UTF-8"
+    options.compilerArgs.add('-parameters')
+}
+
+shadowJar {
+    mergeServiceFiles()
+}
+
+run.classpath += configurations.developmentOnly
+run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
+
+

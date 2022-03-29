@@ -1,0 +1,15 @@
+// SERVICIOS
+// URL: http://localhost:8080/cliente/guardar
+
+{
+  "identidad": "11284188",
+  "nombre": "Juan",
+  "fechaNacimiento": 598942800000,
+  "contacto": {
+    "mail": "juan@hotmail.com",
+    "telefono": "300801806"
+  }
+}
+
+// URL: http://localhost:8080/ms-cliente/cliente/listar
+// URL: http://localhost:8080/ms-cliente/cliente/consultar?identidad=24

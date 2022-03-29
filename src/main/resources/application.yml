@@ -1,0 +1,32 @@
+micronaut:
+  context-path: /${APPNAME}
+  application:
+    name: ${APPNAME}
+  server:
+    port: ${APPPORT}
+  router:
+    versioning:
+      enabled: true
+      default-version: 1
+      parameter:
+        enabled: true
+        names: 'v,api-version'
+      header:
+        enabled: true
+        names:
+          - 'X-API-VERSION'
+          - 'Accept-Version'
+          
+mongodb:
+  uri: ${MONGODBURI}
+  database: ${MONGODBNAME}
+
+log:
+  application:
+    name: ${APPNAME}
+
+# SE DEBEN DEFINIR LAS SIGUIENTES VARIABLES DE ENTORNO (NUNCA QUEMAR CONFIGURACIONES)
+# MONGODBURI=mongodb://A7SO6S68E4ISEL:Su.r4.3n.l1.n3.4.06.27.20.14o@cluster0-shard-00-01-pcnre.mongodb.net:27017,cluster0-shard-00-00-pcnre.mongodb.net:27017,cluster0-shard-00-02-pcnre.mongodb.net:27017/test?ssl=true&nbChannelsPerNode=1&keepAlive=false&authSource=admin
+# MONGODBNAME=test
+# APPNAME=ms-cliente
+# APPPORT=8080

@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: dna.analyzer
+---
+testFramework: junit
+sourceLanguage: java
