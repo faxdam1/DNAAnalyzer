@@ -1,32 +1,29 @@
 package meli.com.co.domain.service;
 
-import meli.com.co.domain.exception.ExceptionFactory;
-import reactor.core.publisher.Mono;
-
 import java.util.HashMap;
-
 
 public class DnaAnalyzerService extends Service {
 
-    private HashMap<String, Integer> hashTable = new HashMap<>();
+
     private String [] dictionary=new String[]{"AAAA","TTTT","CCCC","GGGG"};
 
     public boolean isMutant(String[] dnaSecuence) {
+        HashMap<String, Integer> hashTable = new HashMap<>();
         String[][] dna = this.convertArray(dnaSecuence);
         for (int row = 0; row < dna.length; row++) {
             for (int col = 0; col < dna[row].length; col++) {
-                this.indexSecuenceNode(dna, row, col);
+                this.indexSecuenceNode(dna, row, col,hashTable);
             }
         }
         int countSecuence=0;
         for(String secuence:dictionary){
-            if(this.hashTable.containsKey(secuence))
-                countSecuence = countSecuence + this.hashTable.get(secuence).intValue();
+            if(hashTable.containsKey(secuence))
+                countSecuence = countSecuence + hashTable.get(secuence).intValue();
         }
         return countSecuence>1;
     }
 
-    private void indexSecuenceNode(String[][] dna, int row, int col) {
+    private void indexSecuenceNode(String[][] dna, int row, int col, HashMap<String,Integer> hashTable) {
         int[] x = {-1, -1, -1, 0, 0, 1, 1, 1};
         int[] y = {-1, 0, 1, -1, 1, -1, 0, 1};
         int R = dna.length, C = dna[0].length;
@@ -37,7 +34,7 @@ public class DnaAnalyzerService extends Service {
             String sequence = this.findSequence(R, C, len, rd, cd, dna, row, col, x, y, dir);
             if (sequence.length() == len) {
                 this.markSequence(R, C, len, rd, cd, dna, row, col, x, y, dir);
-                this.indexSequence(sequence);
+                this.indexSequence(sequence,hashTable);
             }
         }
     }
@@ -59,11 +56,11 @@ public class DnaAnalyzerService extends Service {
         return sequence;
     }
 
-    private void indexSequence(String secuence) {
-        if (this.hashTable.containsKey(secuence)) {
-            this.hashTable.put(secuence, this.hashTable.get(secuence).intValue() + 1);
+    private void indexSequence(String secuence,HashMap<String,Integer> hashTable) {
+        if (hashTable.containsKey(secuence)) {
+            hashTable.put(secuence, hashTable.get(secuence).intValue() + 1);
         } else {
-            this.hashTable.put(secuence, Integer.valueOf(1));
+            hashTable.put(secuence, Integer.valueOf(1));
         }
     }
 

@@ -7,6 +7,8 @@ import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
+import meli.com.co.domain.service.DnaService;
+import meli.com.co.infrastructure.shared.dto.DnaDto;
 import org.modelmapper.ModelMapper;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -16,11 +18,21 @@ import meli.com.co.infrastructure.shared.dto.ClienteDto;
 import javax.inject.Inject;
 import java.util.List;
 
-@Controller("${micronaut.context-path}/cliente")
-public class ClienteCtr extends Ctr {
+@Controller("${micronaut.context-path}/dna")
+public class DnaCtr extends Ctr {
 
     @Inject
     private ModelMapper mapper;
+
+    @Inject
+    private DnaService dnaService;
+
+    @Post(value ="mutant", produces = MediaType.APPLICATION_JSON)
+    public Mono<Boolean> isMutant(@Body DnaDto dnaDto) {
+        return Mono.just(dnaDto.getDna())
+                .flatMap(dna -> this.dnaService.isMutant(dna));
+    }
+
 
     /*
     @Inject

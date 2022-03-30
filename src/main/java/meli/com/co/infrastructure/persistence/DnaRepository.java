@@ -6,19 +6,25 @@ import org.modelmapper.ModelMapper;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Flux;
 import meli.com.co.domain.model.Cliente;
-import meli.com.co.domain.service.dependency.ClienteRepositoryI;
+import meli.com.co.domain.service.dependency.DnaRepositoryI;
 import meli.com.co.infrastructure.persistence.mongo.model.ClienteModel;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class ClienteRepository extends  Repository  implements ClienteRepositoryI {
+public class DnaRepository extends  Repository  implements DnaRepositoryI {
 
     @Inject
     private ModelMapper mapper;
 
     @Inject
     private MongoCollection<ClienteModel> clienteDao;
+
+
+    public Mono<Boolean> saveDna(String [] dna, boolean isMutant){
+        return Mono.just(isMutant);
+    }
+
 
     public Mono<Boolean> guardarCliente(Cliente cliente){
         return Mono.just(mapper.map(cliente, ClienteModel.class)).flatMap(

@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
 @Requires(classes = {Exception.class, ExceptionHandler.class})
 class HttpExceptionsHandler implements ExceptionHandler<Exception, HttpResponse> {
 
-    private static final String BUSINESS_TYPE = "BusinessException";
+    private static final String BUSINESS_TYPE = "BusinessValidation";
     private static final String TECHNICAL_TYPE = "TechnicalException";
 
     final Logger log= LoggerFactory.getLogger("Log");
@@ -46,7 +46,7 @@ class HttpExceptionsHandler implements ExceptionHandler<Exception, HttpResponse>
         try {
             Method method = exception.getClass().getMethod("getStatusCode");
             Object value= method.invoke(exception);
-            return Integer.valueOf((String) value);
+            return Integer.valueOf((Integer) value);
         }catch (Exception ex){
             return 400;
         }
