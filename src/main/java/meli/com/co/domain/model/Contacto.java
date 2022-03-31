@@ -1,8 +1,5 @@
 package meli.com.co.domain.model;
 
-import reactor.core.publisher.Mono;
-import meli.com.co.domain.exception.Validate;
-
 
 public class Contacto extends ValueObject {
 

@@ -2,6 +2,7 @@ package meli.com.co.application;
 
 import io.micronaut.context.annotation.Parameter;
 import io.micronaut.core.version.annotation.Version;
+import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
@@ -10,6 +11,7 @@ import io.micronaut.http.annotation.Post;
 import meli.com.co.domain.service.DnaService;
 import meli.com.co.infrastructure.shared.dto.DnaDto;
 import org.modelmapper.ModelMapper;
+import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import meli.com.co.domain.model.Cliente;
@@ -32,6 +34,20 @@ public class DnaCtr extends Ctr {
         return Mono.just(dnaDto.getDna())
                 .flatMap(dna -> this.dnaService.isMutant(dna));
     }
+
+
+
+
+
+   /* public Publisher<HttpResponse<ClientDto>> queryClient(@PathVariable Publisher<String> dni) {
+        return Mono.just(dni)
+                .flatMap(it -> clientService.queryClient(it)).thenReturn(it-> )
+                .map(it -> {
+                    ClientDto result = mapper.map(it, ClientDto.class);
+                    System.out.println(result);
+                    return HttpResponse.ok(result);
+                });
+    }*/
 
 
     /*
