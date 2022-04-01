@@ -21,6 +21,9 @@ mongodb:
   uri: ${MONGODBURI}
   database: ${MONGODBNAME}
 
+elasticsearch:
+  httpHosts: "http://search-moneyblu-opensearch-35t7oi5x3x65v2ojgfftxnsw4m.us-east-1.es.amazonaws.com"
+
 log:
   application:
     name: ${APPNAME}

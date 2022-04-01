@@ -1,5 +1,6 @@
 package meli.com.co.domain.service;
 
+import meli.com.co.domain.model.Stats;
 import meli.com.co.infrastructure.persistence.DnaRepository;
 import reactor.core.publisher.Mono;
 import meli.com.co.domain.exception.ExceptionFactory;
@@ -21,6 +22,7 @@ public class DnaService extends Service {
                 .flatMap(it->{
                     boolean mutant=this.dnaAnalyzerService.isMutant(dna);
                     this.dnaRepository.saveDna(dna, mutant);
+                    this.dnaRepository.countMutant();
                     return Mono.just(mutant);
                 }).filter(it -> it)
                 .switchIfEmpty(Mono.error(ExceptionFactory.DNA_NO_MUTANT.get()));
@@ -34,6 +36,15 @@ public class DnaService extends Service {
                 .switchIfEmpty(Mono.error(ExceptionFactory.INVALID_DNA.get()))
                 .then(Mono.just(true));
     }
+
+    public Mono<Stats> getStats() {
+        return this.dnaRepository.countMutant().flatMap(countMutant->
+             this.dnaRepository.countHuman().flatMap(countHuman->
+                 Mono.just(new Stats(countMutant,countHuman))
+             ));
+    }
+
+
 }
 
 

@@ -3,6 +3,7 @@ import java.io.Serializable;
 
 public class DnaDto implements Serializable {
 
+
     public String[] getDna() {
         return dna;
     }
@@ -11,6 +12,22 @@ public class DnaDto implements Serializable {
         this.dna = dna;
     }
 
+    public boolean isMutant() {
+        return isMutant;
+    }
+
+    public void setMutant(boolean mutant) {
+        isMutant = mutant;
+    }
+
     private String [] dna;
+
+    public DnaDto(String[] dna, boolean isMutant) {
+        this.dna = dna;
+        this.isMutant = isMutant;
+    }
+    public DnaDto() {}
+
+    private boolean isMutant;
 
 }
