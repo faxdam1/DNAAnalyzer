@@ -7,6 +7,7 @@ public class Stats implements Serializable {
     private int count_human_dna;
     private float ratio;
 
+    public Stats(){}
     public Stats(int count_mutant_dna, int count_human_dna) {
         this.count_mutant_dna = count_mutant_dna;
         this.count_human_dna = count_human_dna;

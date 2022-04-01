@@ -21,16 +21,18 @@ public class DnaCtr extends Ctr {
     @Inject
     private DnaService dnaService;
 
+    @Get(value ="stats”", produces = MediaType.APPLICATION_JSON)
+    public Mono<Stats> stats() {
+
+        return this.dnaService.getStats();
+    }
     @Post(value ="mutant", produces = MediaType.APPLICATION_JSON)
     public Mono<Boolean> isMutant(@Body DnaDto dnaDto) {
         return Mono.just(dnaDto.getDna())
                 .flatMap(dna -> this.dnaService.isMutant(dna));
     }
 
-    @Get(value ="stats”", produces = MediaType.APPLICATION_JSON)
-    public Mono<Stats> stats() {
-        return this.dnaService.getStats();
-    }
+
 
 
 
@@ -90,9 +92,9 @@ public class DnaCtr extends Ctr {
                 .map(it-> mapper.map(it,ClienteDto.class));
     }*/
 
-    @Get(produces = MediaType.TEXT_PLAIN)
-    public String index() {
-        return "Hello World";
+    @Get(produces = MediaType.APPLICATION_JSON)
+    public Mono<Stats> index() {
+        return this.dnaService.getStats();
     }
 
 }
