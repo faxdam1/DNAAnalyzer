@@ -11,7 +11,7 @@ public class Stats implements Serializable {
     public Stats(Long count_mutant_dna, Long count_human_dna) {
         this.count_mutant_dna = count_mutant_dna;
         this.count_human_dna = count_human_dna;
-        this.ratio =count_human_dna==0?-1:(float)count_mutant_dna/(float)count_human_dna;
+        this.ratio =count_human_dna==0?-1:((float)count_mutant_dna/count_human_dna);
     }
 
     public Long getCount_mutant_dna() {
