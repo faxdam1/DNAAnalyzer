@@ -3,24 +3,24 @@ import java.io.Serializable;
 
 public class Stats implements Serializable {
 
-    private int count_mutant_dna;
-    private int count_human_dna;
-    private float ratio;
+    private Long count_mutant_dna;
+    private Long count_human_dna;
+    private Float ratio;
 
     public Stats(){}
-    public Stats(int count_mutant_dna, int count_human_dna) {
+    public Stats(Long count_mutant_dna, Long count_human_dna) {
         this.count_mutant_dna = count_mutant_dna;
         this.count_human_dna = count_human_dna;
-        this.ratio = count_mutant_dna/count_human_dna;
+        this.ratio =count_human_dna==0?-1:(float)count_mutant_dna/(float)count_human_dna;
     }
 
-    public int getCount_mutant_dna() {
+    public Long getCount_mutant_dna() {
         return count_mutant_dna;
     }
-    public int getCount_human_dna() {
+    public Long getCount_human_dna() {
         return count_human_dna;
     }
-    public float getRatio() {
+    public Float getRatio() {
         return ratio;
     }
 

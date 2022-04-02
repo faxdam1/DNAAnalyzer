@@ -29,7 +29,7 @@ dependencies {
     implementation "io.micronaut:micronaut-http-server-netty"
     implementation "io.micronaut:micronaut-http-client"
     compile group: "com.google.code.gson", name: "gson", version: "2.8.6"
-    compile "io.micronaut.configuration:micronaut-mongo-reactive"
+    compile 'org.elasticsearch.client:elasticsearch-rest-high-level-client:6.5.4'
     compile (group: 'io.micronaut.aws', name: 'micronaut-function-aws-api-proxy', version: '1.3.3')
     {
         exclude group: "org.slf4j", module: "slf4j-api"
@@ -37,6 +37,7 @@ dependencies {
     }
     compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.5'
     compile 'io.projectreactor:reactor-core'
+    runtimeOnly "org.apache.logging.log4j:log4j-core:2.11.2"
     runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
 
     testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")

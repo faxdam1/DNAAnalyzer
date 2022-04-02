@@ -4,8 +4,8 @@ import reactor.core.publisher.Mono;
 
 public interface DnaRepositoryI {
 
-
       Mono<Boolean> saveDna(String [] dna, boolean isMutant);
-      Mono<Integer> countMutant();
+      Mono<Long> countMutant();
+      Mono<Long> countHuman();
 
 }

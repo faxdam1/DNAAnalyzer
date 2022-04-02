@@ -16,8 +16,8 @@ public class DnaDto implements Serializable {
         return isMutant;
     }
 
-    public void setMutant(boolean mutant) {
-        isMutant = mutant;
+    public void setMutant(boolean isMutant) {
+        isMutant = isMutant;
     }
 
     private String [] dna;

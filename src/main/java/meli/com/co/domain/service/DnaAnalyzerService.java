@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 public class DnaAnalyzerService extends Service {
 
-
     private String [] dictionary=new String[]{"AAAA","TTTT","CCCC","GGGG"};
 
     public boolean isMutant(String[] dnaSecuence) {

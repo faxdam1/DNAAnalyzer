@@ -20,7 +20,7 @@ public class AppContext {
     @Singleton
     DnaService getDnaService()
     {
-        return new DnaService( new DnaAnalyzerService(),dnaRepository );
+        return new DnaService( new DnaAnalyzerService(),dnaRepository);
     }
 
 }

@@ -1,4 +1,4 @@
-package meli.com.co.infrastructure.shared.logger.http;
+package meli.com.co.infrastructure.shared.handler;
 
 import java.io.Serializable;
 

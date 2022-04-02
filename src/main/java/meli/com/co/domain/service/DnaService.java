@@ -1,7 +1,7 @@
 package meli.com.co.domain.service;
 
 import meli.com.co.domain.model.Stats;
-import meli.com.co.infrastructure.persistence.DnaRepository;
+import meli.com.co.domain.service.dependency.DnaRepositoryI;
 import reactor.core.publisher.Mono;
 import meli.com.co.domain.exception.ExceptionFactory;
 import java.util.Arrays;
@@ -10,21 +10,18 @@ import java.util.Arrays;
 public class DnaService extends Service {
 
     private DnaAnalyzerService dnaAnalyzerService;
-    private DnaRepository dnaRepository;
+    private DnaRepositoryI dnaRepositoryI;
 
-    public DnaService(DnaAnalyzerService dnaAnalyzerService, DnaRepository dnaRepository) {
+    public DnaService(DnaAnalyzerService dnaAnalyzerService, DnaRepositoryI dnaRepository) {
         this.dnaAnalyzerService = dnaAnalyzerService;
-        this.dnaRepository = dnaRepository;
+        this.dnaRepositoryI = dnaRepository;
     }
 
     public Mono<Boolean> isMutant(String[] dna) {
         return this.isDnaValid(dna)
-                .flatMap(it->{
-                    boolean mutant=this.dnaAnalyzerService.isMutant(dna);
-                    this.dnaRepository.saveDna(dna, mutant);
-                    this.dnaRepository.countMutant();
-                    return Mono.just(mutant);
-                }).filter(it -> it)
+                .flatMap(it->Mono.just(this.dnaAnalyzerService.isMutant(dna)))
+                .flatMap(mutant->this.dnaRepositoryI.saveDna(dna, mutant).flatMap(it->Mono.just(mutant)))
+                .filter(it -> it)
                 .switchIfEmpty(Mono.error(ExceptionFactory.DNA_NO_MUTANT.get()));
     }
 
@@ -38,8 +35,8 @@ public class DnaService extends Service {
     }
 
     public Mono<Stats> getStats() {
-        return this.dnaRepository.countMutant().flatMap(countMutant->
-             this.dnaRepository.countHuman().flatMap(countHuman->
+        return this.dnaRepositoryI.countMutant().flatMap(countMutant->
+             this.dnaRepositoryI.countHuman().flatMap(countHuman->
                  Mono.just(new Stats(countMutant,countHuman))
              ));
     }
