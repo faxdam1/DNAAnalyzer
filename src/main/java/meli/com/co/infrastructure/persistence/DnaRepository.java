@@ -1,5 +1,6 @@
 package meli.com.co.infrastructure.persistence;
 
+import org.elasticsearch.action.ActionListener;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
@@ -28,10 +29,19 @@ public class DnaRepository extends Repository implements DnaRepositoryI {
             jsonMap.put("dna", dna);
             jsonMap.put("isMutant", isMutant);
             IndexRequest indexRequest = new IndexRequest("dna", "doc").source(jsonMap);
-            IndexResponse indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
-            return indexResponse.status().getStatus() == 0;
+            client.indexAsync(indexRequest, RequestOptions.DEFAULT, indexListener);
+            return true;
         });
     }
+
+    ActionListener<IndexResponse> indexListener = new ActionListener<IndexResponse>() {
+        @Override
+        public void onResponse(IndexResponse indexResponse) {}
+        @Override
+        public void onFailure(Exception e) {
+            log.error(e.getMessage());
+        }
+    };
 
     public Mono<Long> countMutant() {
         return Mono.fromCallable(() -> {
