@@ -19,6 +19,8 @@ micronaut:
 
 elasticsearch:
   endpoint: ${ENDPOINTELASTIC}
+  user: ${USERELASTIC}
+  password: ${PASSWORDELASTIC}
 
 log:
   application:

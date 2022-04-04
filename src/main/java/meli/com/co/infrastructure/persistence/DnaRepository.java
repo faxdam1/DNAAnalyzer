@@ -37,7 +37,7 @@ public class DnaRepository extends Repository implements DnaRepositoryI {
                 }
                 @Override
                 public void onFailure(Exception e) {
-                    log.error(e.getMessage());
+                    e.printStackTrace();
                     sink.error(e);
                 }
             });
@@ -60,7 +60,7 @@ public class DnaRepository extends Repository implements DnaRepositoryI {
                 }
                 @Override
                 public void onFailure(Exception e) {
-                    log.error(e.getMessage());
+                    e.printStackTrace();
                     sink.error(e);
                 }
             });
@@ -81,7 +81,7 @@ public class DnaRepository extends Repository implements DnaRepositoryI {
                 }
                 @Override
                 public void onFailure(Exception e) {
-                    log.error(e.getMessage());
+                    e.printStackTrace();
                     sink.error(e);
                 }
             });
