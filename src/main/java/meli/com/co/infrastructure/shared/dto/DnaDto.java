@@ -13,11 +13,11 @@ public class DnaDto implements Serializable {
     }
 
     public boolean isMutant() {
-        return isMutant;
+        return this.isMutant;
     }
 
     public void setMutant(boolean isMutant) {
-        isMutant = isMutant;
+        this.isMutant = isMutant;
     }
 
     private String [] dna;

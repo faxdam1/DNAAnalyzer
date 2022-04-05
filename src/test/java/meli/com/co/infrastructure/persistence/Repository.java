@@ -1,10 +1,8 @@
-package meli.com.co.domain.model;
+package meli.com.co.infrastructure.persistence;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.Serializable;
-
-public class Entity implements Serializable {
+public class Repository {
     final Logger log= LoggerFactory.getLogger("Log");
 }
