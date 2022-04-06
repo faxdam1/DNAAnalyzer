@@ -14,6 +14,8 @@ import org.junit.jupiter.params.converter.ConvertWith;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.ArgumentMatchers;
 import reactor.test.StepVerifier;
+import software.amazon.awssdk.services.sns.SnsAsyncClient;
+import software.amazon.awssdk.services.sns.model.PublishRequest;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -35,9 +37,33 @@ public class DnaRepositorySpec {
         return new ElasticSearchClientProxy();
     }
 
+    @Singleton
+    SnsAsyncClient getSnsAsyncClient() {
+        return  SnsAsyncClient.create();
+    }
+
     @MockBean(ElasticSearchClientProxy.class)
     ElasticSearchClientProxy client() {
         return mock(ElasticSearchClientProxy.class);
+    }
+
+    @MockBean(SnsAsyncClient.class)
+    SnsAsyncClient snsAsyncClient() {
+        return mock(SnsAsyncClient.class);
+    }
+
+
+    @ParameterizedTest
+    @CsvSource({"ATGCGA;CAGTGC;TTATGT;AGAAGG;CCCCTA;TCACTG,true", "AAAAGA;CCGTGC;TTATGT;AGGAGG;CCCCTA;TCACTG,true"})
+    void send_dna(@ConvertWith(StringArrayConverter.class) String[] dna, Boolean isMutant) {
+        when(this.snsAsyncClient().publish(ArgumentMatchers.any(PublishRequest.class))).thenAnswer(it->{
+            return "";
+        });
+        StepVerifier
+                .create(dnaRepository.sendDna(dna,isMutant))
+                .expectSubscription()
+                .thenCancel()
+                .verify();
     }
 
     @ParameterizedTest
