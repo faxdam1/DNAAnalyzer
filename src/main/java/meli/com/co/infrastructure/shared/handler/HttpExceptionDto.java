@@ -2,7 +2,7 @@ package meli.com.co.infrastructure.shared.handler;
 
 import java.io.Serializable;
 
-class HttpExceptionDto implements Serializable {
+public class HttpExceptionDto implements Serializable {
 
     private String type;
     private String message;

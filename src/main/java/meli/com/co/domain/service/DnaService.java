@@ -6,7 +6,6 @@ import reactor.core.publisher.Mono;
 import meli.com.co.domain.exception.ExceptionFactory;
 import java.util.Arrays;
 
-
 public class DnaService extends Service {
 
     private DnaAnalyzerService dnaAnalyzerService;

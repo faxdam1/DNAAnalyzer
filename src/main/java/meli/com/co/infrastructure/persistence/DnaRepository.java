@@ -1,13 +1,12 @@
 package meli.com.co.infrastructure.persistence;
 
+import meli.com.co.infrastructure.shared.ElasticSearchClientProxy;
 import org.elasticsearch.action.ActionListener;
-import org.elasticsearch.action.DocWriteResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import reactor.core.publisher.Mono;
@@ -22,7 +21,7 @@ import java.util.Map;
 public class DnaRepository extends Repository implements DnaRepositoryI {
 
     @Inject
-    RestHighLevelClient client;
+    ElasticSearchClientProxy client;
 
     public Mono<Boolean> saveDna(String[] dna, boolean isMutant) {
         return Mono.create(sink -> {
@@ -43,6 +42,8 @@ public class DnaRepository extends Repository implements DnaRepositoryI {
             });
         });
     }
+
+
 
 
 

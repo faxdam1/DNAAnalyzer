@@ -26,6 +26,9 @@ public class DnaDto implements Serializable {
         this.dna = dna;
         this.isMutant = isMutant;
     }
+    public DnaDto(String[] dna) {
+        this.dna = dna;
+    }
     public DnaDto() {}
 
     private boolean isMutant;

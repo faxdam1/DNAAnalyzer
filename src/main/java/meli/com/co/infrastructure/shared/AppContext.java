@@ -18,9 +18,15 @@ public class AppContext {
 
 
     @Singleton
+    DnaAnalyzerService getAdnService()
+    {
+        return new DnaAnalyzerService();
+    }
+
+    @Singleton
     DnaService getDnaService()
     {
-        return new DnaService( new DnaAnalyzerService(),dnaRepository);
+        return new DnaService(getAdnService(),dnaRepository);
     }
 
 }

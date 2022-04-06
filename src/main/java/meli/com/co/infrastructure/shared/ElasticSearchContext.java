@@ -26,7 +26,7 @@ public class ElasticSearchContext {
     private String password;
 
     @Singleton
-    RestHighLevelClient getRestHighLevelClient(){
+    ElasticSearchClientProxy getElasticSearchClientProxy(){
         final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials(AuthScope.ANY,new UsernamePasswordCredentials(user, password));
         RestClientBuilder builder = RestClient.builder(new HttpHost(endpoint,443,"https"))
@@ -36,8 +36,7 @@ public class ElasticSearchContext {
                         return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
                     }
                 });
-
-       return new RestHighLevelClient(builder);
+       return new ElasticSearchClientProxy(new RestHighLevelClient(builder));
     }
 
 }
