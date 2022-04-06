@@ -62,6 +62,15 @@ test {
 }
 jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "meli/com/co/Application.class",
+                    "meli/com/co/LambdaHandler.class"
+            ])
+        }))
+    }
 }
 tasks.withType(JavaCompile){
     options.encoding = "UTF-8"
