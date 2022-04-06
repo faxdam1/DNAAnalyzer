@@ -73,7 +73,7 @@ class DnaCtrSpec {
     @ParameterizedTest
     @CsvSource({"ATGCGA;CAGTGC;TTATGT;AGAAGG;CCCCTA;TCACTG,true","AAAAGA;CCGTGC;TTATGT;AGGAGG;CCCCTA;TCACTG,true"})
     void is_mutant(@ConvertWith(StringArrayConverter.class) String[] dna, Boolean isMutant) {
-        when(dnaRepository.saveDna(dna,isMutant))
+        when(dnaRepository.sendDna(dna,isMutant))
                 .thenReturn(Mono.just(true));
         String response = client.toBlocking().retrieve(HttpRequest.POST("/mutant",new DnaDto(dna)));
         Boolean isMutantRes=new Gson().fromJson(response,Boolean.class);

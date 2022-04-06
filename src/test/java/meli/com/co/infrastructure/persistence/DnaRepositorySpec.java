@@ -80,48 +80,4 @@ public class DnaRepositorySpec {
                 .verify();
     }
 
-
-/*
-    public Mono<Long> countMutant() {
-        return Mono.create(sink -> {
-            SearchRequest searchRequest = new SearchRequest("dna");
-            SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-            searchSourceBuilder.query(QueryBuilders.termQuery("isMutant", true));
-            searchSourceBuilder.size(0);
-            searchRequest.source(searchSourceBuilder);
-            client.searchAsync(searchRequest, RequestOptions.DEFAULT,new ActionListener<SearchResponse>() {
-                @Override
-                public void onResponse(SearchResponse searchResponse) {
-                    sink.success(searchResponse.getHits().totalHits);
-                }
-                @Override
-                public void onFailure(Exception e) {
-                    e.printStackTrace();
-                    sink.error(e);
-                }
-            });
-        });
-    }
-
-    public Mono<Long> countHuman() {
-        return Mono.create(sink -> {
-            SearchRequest searchRequest = new SearchRequest("dna");
-            SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-            searchSourceBuilder.query(QueryBuilders.termQuery("isMutant", false));
-            searchSourceBuilder.size(0);
-            searchRequest.source(searchSourceBuilder);
-            client.searchAsync(searchRequest, RequestOptions.DEFAULT,new ActionListener<SearchResponse>() {
-                @Override
-                public void onResponse(SearchResponse searchResponse) {
-                    sink.success(searchResponse.getHits().totalHits);
-                }
-                @Override
-                public void onFailure(Exception e) {
-                    e.printStackTrace();
-                    sink.error(e);
-                }
-            });
-        });
-    }*/
-
 }
