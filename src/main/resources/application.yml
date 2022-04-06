@@ -22,6 +22,12 @@ elasticsearch:
   user: ${USERELASTIC}
   password: ${PASSWORDELASTIC}
 
+sqs:
+  topic: ${TOPIC}
+  accesskey: ${ACCESSKEY}
+  secretaccesskey: ${SECRETACCESSKEY}
+
+
 log:
   application:
     name: ${APPNAME}

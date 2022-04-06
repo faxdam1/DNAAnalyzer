@@ -1,6 +1,9 @@
 package meli.com.co.infrastructure.persistence;
 
-import meli.com.co.infrastructure.shared.ElasticSearchClientProxy;
+import com.google.gson.Gson;
+import io.micronaut.context.annotation.Value;
+import meli.com.co.infrastructure.shared.proxy.ElasticSearchClientProxy;
+import meli.com.co.infrastructure.shared.dto.DnaDto;
 import org.elasticsearch.action.ActionListener;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
@@ -11,6 +14,9 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import reactor.core.publisher.Mono;
 import meli.com.co.domain.service.dependency.DnaRepositoryI;
+import software.amazon.awssdk.services.sns.SnsAsyncClient;
+import software.amazon.awssdk.services.sns.model.PublishRequest;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.HashMap;
@@ -22,6 +28,32 @@ public class DnaRepository extends Repository implements DnaRepositoryI {
 
     @Inject
     ElasticSearchClientProxy client;
+
+    @Inject
+    SnsAsyncClient snsAsyncClient;
+
+    @Value("${sqs.topic}")
+    private String topic;
+
+    public  Mono<Boolean> sendDna(String[] dna, boolean isMutant) {
+        return Mono.create(sink -> {
+            String message=new Gson().toJson(new DnaDto(dna,isMutant));
+            snsAsyncClient.publish(PublishRequest
+                    .builder()
+                    .topicArn(topic)
+                    .message(message).build()
+            ).supplyAsync(() -> {
+                try {
+                    sink.success(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    sink.error(e);
+                }
+                return "";
+            });
+        });
+    }
+
 
     public Mono<Boolean> saveDna(String[] dna, boolean isMutant) {
         return Mono.create(sink -> {
@@ -42,9 +74,6 @@ public class DnaRepository extends Repository implements DnaRepositoryI {
             });
         });
     }
-
-
-
 
 
     public Mono<Long> countMutant() {

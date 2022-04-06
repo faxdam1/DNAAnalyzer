@@ -19,7 +19,7 @@ public class DnaService extends Service {
     public Mono<Boolean> isMutant(String[] dna) {
         return this.isDnaValid(dna)
                 .flatMap(it->Mono.just(this.dnaAnalyzerService.isMutant(dna)))
-                .flatMap(mutant->this.dnaRepositoryI.saveDna(dna, mutant).flatMap(it->Mono.just(mutant)))
+                .flatMap(mutant->this.dnaRepositoryI.sendDna(dna, mutant).flatMap(it->Mono.just(mutant)))
                 .filter(it -> it)
                 .switchIfEmpty(Mono.error(ExceptionFactory.DNA_NO_MUTANT.get()));
     }

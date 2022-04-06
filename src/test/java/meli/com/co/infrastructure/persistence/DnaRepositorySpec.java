@@ -2,17 +2,10 @@ package meli.com.co.infrastructure.persistence;
 
 import io.micronaut.test.annotation.MicronautTest;
 import io.micronaut.test.annotation.MockBean;
-import meli.com.co.infrastructure.shared.ElasticSearchClientProxy;
+import meli.com.co.infrastructure.shared.proxy.ElasticSearchClientProxy;
 import meli.com.co.infrastructure.shared.converter.StringArrayConverter;
-import org.apache.http.HttpHost;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.elasticsearch.action.ActionListener;
 import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.client.*;
 import org.junit.jupiter.api.Test;
@@ -20,16 +13,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.converter.ConvertWith;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.ArgumentMatchers;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.naming.directory.SearchResult;
-
-import java.time.Duration;
 
 import static org.mockito.Mockito.*;
 

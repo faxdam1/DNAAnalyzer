@@ -1,4 +1,4 @@
-package meli.com.co.infrastructure.shared;
+package meli.com.co.infrastructure.shared.proxy;
 
 import org.elasticsearch.action.ActionListener;
 import org.elasticsearch.action.index.IndexRequest;
