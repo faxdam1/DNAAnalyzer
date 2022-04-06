@@ -43,6 +43,8 @@ USERELASTIC|private secret was mailed|
 | Run | gradle clean run |
 | Test | gradle clean test |
 | Build| gradle clean build |
+| Run jar| java -jar [dna-analyzer-0.1-all.jar](https://dnaanalyzerresources.s3.amazonaws.com/dna-analyzer-0.1-all.jar)|
+
 
 ## 2. API
 > I will add swagger or openAPI documentation in other version
