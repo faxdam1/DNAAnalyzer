@@ -16,10 +16,8 @@ import org.mockito.ArgumentMatchers;
 import reactor.test.StepVerifier;
 import software.amazon.awssdk.services.sns.SnsAsyncClient;
 import software.amazon.awssdk.services.sns.model.PublishRequest;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import static org.mockito.Mockito.*;
 
 

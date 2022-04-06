@@ -3,13 +3,11 @@ package meli.com.co.application;
 import com.google.gson.Gson;
 import io.micronaut.core.type.Argument;
 import io.micronaut.http.HttpRequest;
-import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.test.annotation.MicronautTest;
 import io.micronaut.test.annotation.MockBean;
-import meli.com.co.domain.exception.BusinessException;
 import meli.com.co.domain.exception.ExceptionFactory;
 import meli.com.co.domain.model.Stats;
 import meli.com.co.domain.service.DnaAnalyzerService;
@@ -18,7 +16,6 @@ import meli.com.co.infrastructure.persistence.DnaRepository;
 import meli.com.co.infrastructure.shared.converter.StringArrayConverter;
 import meli.com.co.infrastructure.shared.dto.DnaDto;
 import meli.com.co.infrastructure.shared.handler.HttpExceptionDto;
-import org.apache.http.HttpException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.converter.ConvertWith;
 import reactor.core.publisher.Mono;
@@ -28,8 +25,6 @@ import static org.mockito.Mockito.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import reactor.test.StepVerifier;
-
-import java.lang.reflect.Method;
 
 @MicronautTest
 class DnaCtrSpec {

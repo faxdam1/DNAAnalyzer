@@ -5,9 +5,7 @@ import meli.com.co.infrastructure.shared.proxy.ElasticSearchClientProxy;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import software.amazon.awssdk.services.sns.SnsAsyncClient;
-
 import javax.inject.Inject;
-
 
 @MicronautTest
 public class PersistenceContextSpec {
