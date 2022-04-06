@@ -24,13 +24,13 @@ class HttpExceptionsHandler implements ExceptionHandler<Exception, HttpResponse>
     @Override
     public HttpResponse handle(HttpRequest request, Exception exception) {
         HttpStatus httpStatus;
-        log.error(exception.getMessage());
         if(exception.getClass().toString().contains("BusinessException")){
             httpStatus= HttpStatus.valueOf(getExceptionStatusCode(exception));
             return HttpResponseFactory.INSTANCE.
                     status(httpStatus).
                     body(new HttpExceptionDto(BUSINESS_TYPE, exception.getMessage()));
         }else{
+             log.error(exception.getMessage());
              httpStatus= HttpStatus.valueOf(500);
              return HttpResponseFactory.INSTANCE.
                     status(httpStatus).
